@@ -9,7 +9,6 @@ with open("valid-wordle-words.txt", "r") as f:
     words = [w for w in f]
 
 wordle = random.choice(words)
-print(wordle)
 guesses = [
     ['-', '-', '-', '-', '-'],
     ['-', '-', '-', '-', '-'],
@@ -18,14 +17,13 @@ guesses = [
     ['-', '-', '-', '-', '-'],
     ['-', '-', '-', '-', '-']
 ]
-print(guesses)
 
 print("Welcome to SimpleWordle!")
 print("Capitalized letters = letter in correct spot")
 print("You have 6 attempts! Have fun!")
 
 while (attempt < 6):
-    guess = input("Attempt #" + str(attempt) + ": ")
+    guess = input("Attempt #" + str(attempt) + ": ").lower()
     guess += chr(10)
     if (len(guess) != 6 and guess not in words):
         print("Your guess is invalid! Try again")
