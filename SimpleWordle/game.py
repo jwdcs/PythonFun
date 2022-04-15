@@ -9,30 +9,41 @@ with open("valid-wordle-words.txt", "r") as f:
     words = [w for w in f]
 
 wordle = random.choice(words)
-# print(wordle)
+print(wordle)
+guesses = [
+    ['-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-'],
+    ['-', '-', '-', '-', '-']
+]
+print(guesses)
 
 print("Welcome to SimpleWordle!")
 print("Capitalized letters = letter in correct spot")
-print("Have fun!")
+print("You have 6 attempts! Have fun!")
 
-while (attempt <= 6):
+while (attempt < 6):
     guess = input("Attempt #" + str(attempt) + ": ")
-    if (len(guess) != 5):
-        print("Your guess must be 5 characters! Try again")
+    guess += chr(10)
+    if (len(guess) != 6 and guess not in words):
+        print("Your guess is invalid! Try again")
         continue
-    if(guess == wordle):
+    elif(str(guess).lower() == str(wordle).lower()):
         print(guess.upper())
         print("CORRECT!")
         break
     else:
-        result = ""
-        for i in range(len(wordle) - 1):
-            if(guess[i] == wordle[i]):
-                result += guess[i].upper()
+        for i in range(5):
+            if guess[i] == wordle[i]:
+                guesses[attempt][i] = wordle[i].upper()
             else:
-                result += guess[i]
-        print(result)
+                for j in range(5):
+                    if guess[j] == wordle[i]:
+                        guesses[attempt][j] = wordle[i]
+        print(guesses[attempt])
     attempt += 1
 
-if (attempt > 6):
+if (attempt >= 6):
     print("The Wordle was " + wordle.upper())
